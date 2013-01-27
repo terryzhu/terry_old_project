@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Project Files">
+      <UniqueIdentifier>{1f345548-d654-4463-a01b-66cdb4b5d980}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="File System">
+      <UniqueIdentifier>{ce2a0768-fb71-46e7-b3bc-d589b384bfae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Registry Editor">
+      <UniqueIdentifier>{68904cc5-1279-49a0-bd1e-fb9e77fabbcc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Service Controller">
+      <UniqueIdentifier>{8127d8a8-98d3-4129-aed2-a2dd6213cf86}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="SvrCtrl.cpp">
+      <Filter>Service Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="RegistryKey.cpp">
+      <Filter>Registry Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="FileFinder.cpp">
+      <Filter>File System</Filter>
+    </ClCompile>
+    <ClCompile Include="Volume.cpp">
+      <Filter>File System</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Project Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="SvrCtrl.h">
+      <Filter>Service Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="RegistryKey.h">
+      <Filter>Registry Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="FileFinder.h">
+      <Filter>File System</Filter>
+    </ClInclude>
+    <ClInclude Include="Volume.h">
+      <Filter>File System</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Project Files</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Project Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

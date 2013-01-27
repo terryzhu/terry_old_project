@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="AutoBuilder.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="FileDownloader.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Inject.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="ProgramKiller.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="TimerManager.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="VirusCopyer.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="yyzUSB.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Daemon.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="SrvRun.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="ExportExeIfInjected.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="FileInjector.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AutoBuilder.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="FileDownloader.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Inject.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ProgramKiller.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="TimerManager.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="VirusCopyer.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="yyzUSB.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Daemon.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="SrvRun.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="FileInjector.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ExportExeIfInjected.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ntshell.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="yyzUSB.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+    <None Include="yyzUSB.ico" />
+    <None Include="small.ico" />
+    <None Include="Daemon.exe" />
+    <None Include="USBMonitorSrv.exe" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="source">
+      <UniqueIdentifier>{b704692c-6e9a-4499-add5-4a37b93216df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header">
+      <UniqueIdentifier>{3b068633-8859-467d-b46d-7823918dfed5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

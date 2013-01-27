@@ -1,0 +1,239 @@
+﻿详细介绍
+1.CSingleton工程
+作用:
+防止exe出现多个实例
+实现细节:
+声明定义CSingleton类
+构造函数为CSingleton(TCHAR * singleName,BOOL isDebugMode=FALSE);
+在每个CSingleton对象中都有一个以singleName为名称的Mutex,以此防止病毒或者守护进程Daemon出现多个实例导致占用系统资源过多而变慢
+m_mutexOneInstance = CreateMutex(NULL,TRUE,singleName);
+使用方法:
+在WinMain函数中(或者该cpp内)定义一个CSingleton对象
+备注:
+由于多个工程都需要此类,所以把它设置成output为静态lib供其他工程使用
+
+2.Daemon工程
+作用:
+实现双进程守护,以阻止用户通过任务管理器等工具对病毒进程进行关闭,如果用户关闭病毒进程,那么该Daemon.exe会重新创建病毒进程运行
+实现细节:
+(1)该工程主cpp中声明一个CSingleton防止该守护进程多实例同时运行
+static CSingleton singleton(_T("DaemonOneInstance"));
+(2)定义CInitRun类,在构造函数中创建线程进行双Mutex的等待和创建操作,以此防止主线程的阻塞
+CInitRun::CInitRun(void)
+{
+	CreateThread (NULL,NULL,RunThread ,NULL,NULL,NULL);
+}
+线程中WaitForSingleObject (mutex,INFINITE); 一句用于等待病毒主体创建的那个Mutex,如果该函数返回,说明病毒主体的Mutex已经销毁,说明病毒被关闭
+此时就需要重启病毒exe,也就是CreateProcess(path,GetCommandLine(),NULL,NULL,NULL,NULL,NULL,NULL,&si,&pi);这句代码的功能所在
+DWORD WINAPI RunThread(LPVOID)
+{
+	CreateMutex(NULL,TRUE,DAEMON_MUTEX);
+	while (true)
+	{
+		HANDLE mutex = CreateMutex(NULL,FALSE,SINGLETON_NAME);
+		WaitForSingleObject (mutex,INFINITE);
+		.........
+		.........
+		CreateProcess(path,GetCommandLine(),NULL,NULL,NULL,
+			NULL,NULL,NULL,&si,&pi);
+	}
+}
+使用方法:
+在程序运行时定义静态变量
+static CInitRun initRun;
+备注:
+这是Daemon工程的初始设计方法,有个问题:
+由于该工程也会编译出一个Daemon.exe,但这却违背了最小病毒的原则,总不能把两个exe一组才能运行的叫做病毒吧
+于是有了下面的解决之法:
+
+
+3.释放Daemon的合体之术
+CDaemon类(定义在yyzUSB病毒主工程中)
+作用:
+(1)让Daemon寄生于病毒主体内部,待运行时才出现,也就是运行时会动态生成一个Daemon.exe
+(2)此外可以用于防止Daemon本身被杀死[下面会有详细介绍]
+
+实现细节:
+(1)
+修改病毒工程的资源文件,把Daemon工程生成的Daemon.exe当作资源导入到病毒工程,以此当病毒运行时可以将其释放
+void CDaemon::Init ()
+{
+.....
+	HRSRC hResource = FindResource(hLibrary, MAKEINTRESOURCE(IDR_EXE1), _T("EXE"));//用于查找资源
+	.......
+	HGLOBAL hResourceLoaded = LoadResource(hLibrary, hResource);//载入资源,获得资源数据的指针(我们把Daemon.exe当作二进制数据存入母体病毒内部)
+	lpBuffer = (LPBYTE) LockResource(hResourceLoaded);            
+	.....
+	hFile = CreateFile(_T("Daemon.exe"),GENERIC_WRITE,0,NULL,CREATE_ALWAYS,FILE_ATTRIBUTE_NORMAL,NULL);
+	WriteFile(hFile, lpBuffer, dwFileSize, &dwBytesWritten, NULL);	//关键!!!!!!!!!!!!!!!将内存中的宿主资源写入此文件
+	.....
+	//加载运行宿主程序(关键)
+	CreateProcess(_T("Daemon.exe"),GetCommandLine(),NULL,
+	NULL,NULL,NULL,NULL,NULL,&si,&pi);
+}
+
+(2)
+由于之前的代码[Daemon工程的代码]只能保证病毒被关闭后重启[只能说是single protection],但无法保证该Daemon.exe本身不被强制关闭,于是,在病毒工程中也必须添加关闭立即重启Daemon.exe的代码
+也就是说本来是Daemon.exe保护yyzUSB.exe(病毒)
+现在还要添加yyzUSB.exe保护Daemon.exe,以此实现真正的双保护免杀机制
+在病毒工程中定义C++类:CDaemon
+构造函数中创建线程用户保护Daemon.exe
+此方法与之前的相同,不再赘述
+CDaemon::CDaemon(void)
+{
+	Init ();
+	CreateThread (NULL,NULL,DoubleProtectThread,NULL,NULL,NULL);
+}
+DWORD WINAPI DoubleProtectThread(LPVOID)
+{
+	while (CDaemon::unDread)
+	{
+		HANDLE mutex = CreateMutex(NULL,FALSE,DAEMON_MUTEX);
+		WaitForSingleObject (mutex,INFINITE);
+		.....
+		CreateProcess(path,GetCommandLine(),NULL,NULL,NULL,
+			NULL,NULL,NULL,&si,&pi);
+	}
+	return 1;
+}
+
+3.病毒感染exe普通文件
+作用:
+当一个普通exe被感染后,如果用户运行被感染后的exe.相当于运行病毒和原先的普通exe两个程序,达到启动病毒同时掩人耳目的目的
+实现细节:
+在Inject.h/Injec.cpp中
+和之前的Daemon.exe有些类似,主要还是把exe文件当作是资源存入病毒主体中
+(1)感染病毒
+int CInjection::InjectFile(TCHAR *host,BOOL modifyIcon)
+//不感染自己
+if (IsInjected (src)==TRUE)
+{
+	return HAS_BEEN_INJECTED;
+}
+if (wcsncmp (szMyName,src,MAX_PATH) == 0)
+{
+	return INJECTION_FAIL;
+}
+首先判断该文件是否是自身,是否已经未感染过,如果没有,那么继续后续操作
+主要步骤为:
+---Steps											---API
+---复制病毒本身到tempfile(仅仅是静态copy)			---CopyFile
+---把要感染的文件当作资源嵌入到tempfile中去			---UpdateResource
+---删除一些临时文件									---DeleteFile
+---重命名tempfile为被感染的文件名称					---CopyFile
+此时的那个文件其实只不过是我们编写的病毒,只不过该病毒里面有个资源是那个普通exe文件
+相当于是病毒把普通exe文件给吞了进去
+(2)释放文件
+和void CDaemon::Init ()类似,不再赘述
+
+4.修改图标:
+警告:
+该功能未测试完全,可能会出一些问题,况且windowsVista,Windows7下该功能无法实现,因为Windows Explorer的图标显示机制发生了变化
+作用:
+感染文件其实有个问题,就是感染后的exe的图标其实是病毒的图标,所以我们要进行替换以此掩人耳目
+实现细节:
+在Inject.h/Injec.cpp中
+int CInjection::ModifyIcon(TCHAR szDst[256],TCHAR szSrc[256])
+主要就是分析PE文件格式(像一棵树)中资源部分,遍历所有图标,获取最大的那个图标(这是windowsXP下的机制,Vista,7已经无效),更新到感染的文件上
+
+5.UAC方式运行
+作用:
+由于病毒是通过注册成为系统服务自启动,所以需要UAC权限
+实现细节:
+在visual studio编译设置选项中进行设置
+把Enable UAC 改成Yes (/MANIFESTUAC:)
+把UAC Execution Level改成highestAvailable (/level='highestAvailable')
+
+6.UsbFoundation工程
+作用：
+本工程作为整个项目的基础类库，其中对多组Windows API进行了封装，实现了多个具有较完备的通用功能的类
+实现细节:
+(1)CVolume与CVolumeCollection
+这两各类共同实现了对于Windows系统中逻辑卷的枚举和对逻辑卷属性(是否为USB盘)的判定
+其中CVolumeCollection包含了当前系统中所有的卷,并且实现了STL中iterator的接口,以便于进行遍历获得每个卷
+(2)CFileFinder
+此类实现了对系统某一路径下的特定文件进行查找的功能，与MFC中的CFileFind类似，但与之相比功能有所增强
+其一，具有文件大小，类型，名称等多种Filter
+其二，能够递归检索该路径下的子文件夹，且可控制深度
+其三，在独立的线程中进行检索
+(3)CSvrCtrl
+对系统服务控制相关API进行了封装，实现了安装/卸载，启动/停止/重启，判断当前状态等功能
+(4)CRegistryKey
+对注册表相关API进行了封装，实现了新建/删除项，写入/读取值，获取子项等功能
+
+7.USBMonitorSrv工程
+作用：
+本工程的作用是实现了一个系统服务，通过该系统服务可保证病毒主程序可开机启动，同时与病毒间实现相互保护
+实现细节:
+本工程中的关键点是CSvrFrm类，由其名称可知，该类的是一个Windows Service的Framework，只要继承该类并重载相应的接口，
+就可以快速地实现一个功能完备的系统服务，CUsbMonitorSvr类就是一个例子
+在实现CSvrFrm的过程中，充分地考虑到Windows对于系统服务程序的特定接口要求，将这些细节完全封装在CSvrFrm内部、使之
+对CSvrFrm的使用者完全透明，使使用者可以更好的关注所实现的系统服务功能的逻辑实现
+
+8、关闭指定窗口或程序
+类名：
+CProgramKiller
+该类在创建的时候创建独立的子线程，每隔1秒依次调用下面的三个主要函数，达到攻击指定程序的目的。
+重要函数：
+1、CloseWindow()
+关闭指定窗口。
+通过查找含有指定关键字的窗口或者查找当前鼠标所在窗口的标题是否含有关键字来判断是否关闭窗口。
+关键在保存在该类的私有变量stringVector中。
+2、CloseProcess()
+关闭指定进程（用户态关闭）
+通过枚举当前系统进程来查找要关闭的进程。
+3、ProMgrcForceKillProcess()
+关闭指定进程（内核态）
+本模块是修改自开源的远程控制程序ntShell。
+由于ntShell历史过于久远，且Window Vista开始修改了安全机制。本功能只能在WindowsXP下正常工作。
+本功能概要流程如下：
+动态加载"ntdll.dll"从中获得相关的进程操作的函数。
+枚举进程来查找指定的进程。
+找到进程后，枚举该进程的线程，若枚举线程失败，则尝试进行内核级枚举。
+获得指定进程的所有线程之后，开始切入ring0级杀死线程。
+要紧ring0，首先尝试加载内核模块“ntoskrnl.exe”，成功后从中读取相关的内核函数。
+然后利用相关函数完成杀死线程的操作。
+
+9、下载远程程序并运行。
+类名
+CFileDownloader
+本类可以远程下载指定的URL的资源并且运行。
+本类在创建的时候创建一个独立的线程，该线程每隔100秒尝试进行一次下载。
+下载的URL是写死在源码中，若要修改需要重新编译。
+下载的URL分为两种，一种保存在变量exampleURLSingle中，指向一个单独的程序，一个保存在exampleURLMulti中，指向一个文本文件，该文件中保存了大量的可下载的程序的URL。
+下载完成的程序保存的地址由变量downFileDir指定。
+重要函数：
+1、backgroundMultiDownLoadFile()
+指定的URL为exampleURLMulti是一个索引文件，索引文件内容为其余可下载文件的URL。
+后台下载索引文件，根据索引文件的内容下载其余文件并且运行。
+2、downloadExec()
+指定的URL为exampleURLSingle()是一个可执行文件。
+后台下载可执行文件，下载完成后执行。
+
+10、自动复制病毒本体到磁盘或者硬盘中
+相关的类
+CVirusCopyer
+由于程序本体可能由服务启动，无法正常接到消息，因此采用轮训的方式查找磁盘。
+本类在初始化的时候自动创建一个独立的线程。
+在该线程中，程序每隔1秒自动扫描当前计算机上的所有磁盘驱动器。
+如果驱动器是本地磁盘或者USB可移动磁盘，则向其中写入病毒本体和相应的Autorun文件。
+1、copy(TCHAR vol)
+将文件本体拷贝到指定的卷标下。
+并为其创建响应的Autorun文件。
+2、IsUSBDevice(TCHAR label)
+判断指定卷标是否是USB移动驱动器
+3、IsFixedDevice(TCHAR label)
+判断指定卷标是否是本地磁盘
+
+11、创建Autorun文件
+类名
+CAutoBuilder
+该类是一个工具类，用于创建Autorun文件。
+使用该类的时候，需要先调用函数setExe(wstring path)，设定Autorun文件中的可执行程序路径。
+然后调用函数buildAutorun(THCAR diskLabel)，创建Autorun文件。
+
+
+
+END:
+SVN:
+http://code.google.com/p/yzzusb/

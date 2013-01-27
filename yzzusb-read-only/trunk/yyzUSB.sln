@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "yyzUSB", "yyzUSB\yyzUSB.vcxproj", "{7AB809D0-CA73-462F-A641-EA4F17044187}"
+	ProjectSection(ProjectDependencies) = postProject
+		{13F6AC39-121E-4D35-AA55-105850579505} = {13F6AC39-121E-4D35-AA55-105850579505}
+		{4B76F7C9-DE0D-4634-9785-F994E114C9A2} = {4B76F7C9-DE0D-4634-9785-F994E114C9A2}
+		{9E9C17F8-4DB0-46EF-A201-E87D37924D54} = {9E9C17F8-4DB0-46EF-A201-E87D37924D54}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "USBMonitorSrv", "USBMonitorSrv\USBMonitorSrv.vcxproj", "{13F6AC39-121E-4D35-AA55-105850579505}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4B76F7C9-DE0D-4634-9785-F994E114C9A2} = {4B76F7C9-DE0D-4634-9785-F994E114C9A2}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Daemon", "Daemon\Daemon.vcxproj", "{9E9C17F8-4DB0-46EF-A201-E87D37924D54}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7253486A-943D-4F45-94C7-F38273876328} = {7253486A-943D-4F45-94C7-F38273876328}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Singleton", "Singleton\Singleton.vcxproj", "{7253486A-943D-4F45-94C7-F38273876328}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UsbFoundation", "UsbFoundation\UsbFoundation.vcxproj", "{4B76F7C9-DE0D-4634-9785-F994E114C9A2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7AB809D0-CA73-462F-A641-EA4F17044187}.Debug|Win32.ActiveCfg = Debug|Win32
+		{7AB809D0-CA73-462F-A641-EA4F17044187}.Debug|Win32.Build.0 = Debug|Win32
+		{7AB809D0-CA73-462F-A641-EA4F17044187}.Release|Win32.ActiveCfg = Release|Win32
+		{7AB809D0-CA73-462F-A641-EA4F17044187}.Release|Win32.Build.0 = Release|Win32
+		{13F6AC39-121E-4D35-AA55-105850579505}.Debug|Win32.ActiveCfg = Debug|Win32
+		{13F6AC39-121E-4D35-AA55-105850579505}.Debug|Win32.Build.0 = Debug|Win32
+		{13F6AC39-121E-4D35-AA55-105850579505}.Release|Win32.ActiveCfg = Release|Win32
+		{13F6AC39-121E-4D35-AA55-105850579505}.Release|Win32.Build.0 = Release|Win32
+		{9E9C17F8-4DB0-46EF-A201-E87D37924D54}.Debug|Win32.ActiveCfg = Debug|Win32
+		{9E9C17F8-4DB0-46EF-A201-E87D37924D54}.Debug|Win32.Build.0 = Debug|Win32
+		{9E9C17F8-4DB0-46EF-A201-E87D37924D54}.Release|Win32.ActiveCfg = Release|Win32
+		{9E9C17F8-4DB0-46EF-A201-E87D37924D54}.Release|Win32.Build.0 = Release|Win32
+		{7253486A-943D-4F45-94C7-F38273876328}.Debug|Win32.ActiveCfg = Debug|Win32
+		{7253486A-943D-4F45-94C7-F38273876328}.Debug|Win32.Build.0 = Debug|Win32
+		{7253486A-943D-4F45-94C7-F38273876328}.Release|Win32.ActiveCfg = Release|Win32
+		{7253486A-943D-4F45-94C7-F38273876328}.Release|Win32.Build.0 = Release|Win32
+		{4B76F7C9-DE0D-4634-9785-F994E114C9A2}.Debug|Win32.ActiveCfg = Debug|Win32
+		{4B76F7C9-DE0D-4634-9785-F994E114C9A2}.Debug|Win32.Build.0 = Debug|Win32
+		{4B76F7C9-DE0D-4634-9785-F994E114C9A2}.Release|Win32.ActiveCfg = Release|Win32
+		{4B76F7C9-DE0D-4634-9785-F994E114C9A2}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

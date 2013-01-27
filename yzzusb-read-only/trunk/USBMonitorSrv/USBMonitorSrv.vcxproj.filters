@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Project File</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Project File</Filter>
+    </ClCompile>
+    <ClCompile Include="UsbMonitorSvr.cpp">
+      <Filter>USB Monitor Service</Filter>
+    </ClCompile>
+    <ClCompile Include="SvrFrm.cpp">
+      <Filter>Service Framework</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>Project File</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Project File</Filter>
+    </ClInclude>
+    <ClInclude Include="SvrFrm.h">
+      <Filter>Service Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Log.h">
+      <Filter>Service Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="UsbMonitorSvr.h">
+      <Filter>USB Monitor Service</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Project File">
+      <UniqueIdentifier>{defd7863-b585-4358-9040-54385a226a41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Service Framework">
+      <UniqueIdentifier>{08cf49f2-2d79-462f-8b17-eef82f1fd24b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="USB Monitor Service">
+      <UniqueIdentifier>{ac635530-51d2-4081-a912-93da336fe270}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
