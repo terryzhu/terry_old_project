@@ -1,0 +1,328 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#ifndef APSTUDIO_INVOKED
+#include "targetver.h"
+#endif
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// 中文(中华人民共和国) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+#ifdef _WIN32
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
+#pragma code_page(936)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#ifndef APSTUDIO_INVOKED\r\n"
+    "#include ""targetver.h""\r\n"
+    "#endif\r\n"
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)\r\n"
+    "LANGUAGE 4, 2\r\n"
+    "#pragma code_page(936)\r\n"
+    "#include ""res\\iTunes.rc2""  // 非 Microsoft Visual C++ 编辑的资源\r\n"
+    "#include ""l.CHS\\afxres.rc""      // 标准组件\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\iTunes.ico"
+IDI_ICON1               ICON                    "D:\\C++\\iTunes\\iTunes\\res\\itunes.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOGEX 0, 0, 170, 62
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "关于 iTunes"
+FONT 9, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,14,14,21,20
+    LTEXT           "iTunes，1.0 版",IDC_STATIC,42,14,114,8,SS_NOPREFIX
+    LTEXT           "Copyright (C) 2009",IDC_STATIC,42,26,114,8
+    DEFPUSHBUTTON   "确定",IDOK,113,41,50,14,WS_GROUP
+END
+
+IDD_ITUNES_DIALOG DIALOGEX 0, 0, 214, 400
+STYLE DS_SETFONT | WS_POPUP | WS_VISIBLE | WS_SYSMENU
+EXSTYLE WS_EX_APPWINDOW
+FONT 9, "宋体", 400, 0, 0x86
+BEGIN
+    LISTBOX         IDC_LIST1,6,156,197,209,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP,WS_EX_ACCEPTFILES
+    PUSHBUTTON      "选择文件",IDC_ADD,13,36,33,13,NOT WS_VISIBLE
+    CONTROL         "",IDC_SLIDER1,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | NOT WS_VISIBLE | WS_TABSTOP,4,17,88,15
+    PUSHBUTTON      "桌面歌词",IDC_BUTTON2,16,77,50,14,NOT WS_VISIBLE
+    PUSHBUTTON      "移动歌词",IDC_MOVELRCBTN,16,57,50,14,NOT WS_VISIBLE
+    PUSHBUTTON      "下载歌词",IDC_BUTTON3,16,97,50,14,NOT WS_VISIBLE
+    PUSHBUTTON      "歌词窗口",IDC_BUTTON4,93,75,50,14,NOT WS_VISIBLE
+    PUSHBUTTON      "保存列表",IDC_SAVELIST,76,98,50,14,NOT WS_VISIBLE
+    PUSHBUTTON      "暂停/播放",IDC_BUTTON5,77,117,50,14,NOT WS_VISIBLE
+    PUSHBUTTON      "<<",IDC_DELETEADLL,73,59,13,14,NOT WS_VISIBLE
+    PUSHBUTTON      "选择目录",IDC_BUTTON1,51,36,35,14,NOT WS_VISIBLE
+    PUSHBUTTON      "↓",IDC_BUTTON7,73,78,13,14,NOT WS_VISIBLE
+END
+
+IDD_DESKLRC DIALOGEX 100, 500, 836, 112
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    PUSHBUTTON      "取消",IDCANCEL,779,91,50,14
+END
+
+IDD_MOVINGLRC DIALOGEX 0, 0, 432, 24
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_BORDER | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+END
+
+IDD_GETLRC_DLG DIALOGEX 0, 0, 316, 183
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    EDITTEXT        IDC_EDIT2,55,50,49,14,ES_AUTOHSCROLL
+    LTEXT           "歌手",IDC_STATIC,19,25,28,14
+    LTEXT           "歌名",IDC_STATIC,19,50,26,14
+    CONTROL         "",IDC_LIST1,"SysListView32",LVS_REPORT | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,146,20,144,50
+    LISTBOX         IDC_LIST2,146,79,144,97,LBS_SORT | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_EDIT3,52,22,53,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "得到歌词",IDC_BUTTONGETLRC,23,93,50,14
+END
+
+IDD_LRCWND DIALOGEX 0, 0, 216, 216
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0xbL
+#else
+ FILEFLAGS 0xaL
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "080403a8"
+        BEGIN
+            VALUE "Comments", "万万静听"
+            VALUE "CompanyName", "上海万万静听有限公司"
+            VALUE "FileDescription", "万万静听"
+            VALUE "FileVersion", "1.0.0.1"
+            VALUE "InternalName", "iTunes.exe"
+            VALUE "LegalCopyright", "万万静听: (C) <iTunes>。保留所有权利。"
+            VALUE "LegalTrademarks", "无"
+            VALUE "OriginalFilename", "iTunes.exe"
+            VALUE "PrivateBuild", "无"
+            VALUE "ProductName", "万万静听"
+            VALUE "ProductVersion", "1.0.0.1"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x804, 936
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 163
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 55
+    END
+
+    IDD_ITUNES_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 3
+        RIGHTMARGIN, 206
+        BOTTOMMARGIN, 393
+    END
+
+    IDD_DESKLRC, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 829
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 105
+    END
+
+    IDD_MOVINGLRC, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 423
+        BOTTOMMARGIN, 20
+    END
+
+    IDD_GETLRC_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 309
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 176
+    END
+
+    IDD_LRCWND, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 209
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 209
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MENU1 MENU 
+BEGIN
+    POPUP "1"
+    BEGIN
+        MENUITEM "还原",                          ID_SHOWWND
+        MENUITEM "下一首",                         ID_PLAY_NEXT
+    END
+    POPUP "主菜单"
+    BEGIN
+        MENUITEM "添加文件",                        IDM_ADDFILE
+        MENUITEM "添加文件夹",                       IDM_ADDDIR
+        MENUITEM "移动歌词",                        IDM_MVLRC
+        MENUITEM "桌面歌词",                        IDM_DESKLRC
+        MENUITEM "保存列表",                        IDM_SAVELIST
+        MENUITEM "打开列表",                        IDM_OPENLIST
+        MENUITEM "清除列表",                        IDM_CLEARLIST
+        MENUITEM "暂停/播放",                       IDM_PAUSE_PLAY
+        MENUITEM "普通歌词",                        IDM_NORMAL_LRC
+        MENUITEM "下载歌词",                        IDM_DOWN_LRC
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_SCROLL              BITMAP                  "scrollbar.bmp"
+IDB_MAININTERFACE       BITMAP                  "res\\main_interface.bmp"
+IDB_CLOSEMOVE           BITMAP                  "res\\close_move.bmp"
+IDB_CLOSENORMAL         BITMAP                  "res\\close_normal.bmp"
+IDB_CLOSEPRESS          BITMAP                  "res\\close_press.bmp"
+IDB_MIN_MOVE            BITMAP                  "res\\min_move.bmp"
+IDB_MIN_NORMAL          BITMAP                  "res\\min_normal.bmp"
+IDB_MIN_PRESS           BITMAP                  "res\\min_press.bmp"
+IDB_STRBLT              BITMAP                  "res\\strbltbmp.bmp"
+IDB_SLIDER              BITMAP                  "res\\slider.bmp"
+IDB_PLAY_MOVE           BITMAP                  "res\\play_move.bmp"
+IDB_PLAY_NORMAL         BITMAP                  "res\\play_normal.bmp"
+IDB_PLAY_PRESS          BITMAP                  "res\\play_press.bmp"
+IDB_PAUSE_MOVE          BITMAP                  "res\\pause_move.bmp"
+IDB_PAUSE_NORMAL        BITMAP                  "res\\pause_normal.bmp"
+IDB_PAUSE_PRESS         BITMAP                  "res\\pause_press.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE 
+BEGIN
+    IDS_ABOUTBOX            "关于 iTunes(&A)..."
+END
+
+#endif    // 中文(中华人民共和国) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+LANGUAGE 4, 2
+#pragma code_page(936)
+#include "res\iTunes.rc2"  // 非 Microsoft Visual C++ 编辑的资源
+#include "l.CHS\afxres.rc"      // 标准组件
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
