@@ -1,0 +1,10 @@
+[47;34;1m1[47;30;0m	: rm *.o
+[47;34;1m2[47;30;0m	: rm Client
+[47;34;1m3[47;30;0m	: rm UDPClient
+[47;34;1m4[47;30;0m	: rm UDPServer
+------------------------------------------------------------------------------------
+
+Compile Result: 
+Total: 0 Error(s), 0 Warning(s)
+Time Cost: 0 seconds
+
